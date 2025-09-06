@@ -24,7 +24,7 @@ Outputs include:
 
 ```bash
 # clone the repo
-git clone https://github.com/filser89/whisper-transcriber.git
+git clone https://github.com/yourusername/whisper-transcriber.git
 cd whisper-transcriber
 
 # create virtual environment
@@ -32,6 +32,10 @@ make venv
 
 # install dependencies
 make install
+
+# copy environment template
+cp .env.example .env
+# then edit .env and set your Hugging Face token + options
 
 # (optional) upgrade deps
 make update
@@ -51,6 +55,18 @@ make update
    ```env
    HUGGINGFACE_TOKEN=hf_xxxxxxxxxxxxx
    ```
+
+### Optional defaults via `.env`
+
+You can also define default transcription settings in `.env`. CLI flags always override these values, but if you don’t provide flags, the following env vars are used:
+
+```env
+MODEL_SIZE=medium         # tiny | base | small | medium | large-v3
+LANGUAGE=ru               # e.g. 'ru' for Russian, leave empty for auto-detect
+DEVICE=cpu                # cpu | cuda
+BEAM_SIZE=5               # decoding beam size (higher = better, slower)
+VAD_FILTER=true           # true | false
+```
 
 ---
 
@@ -130,18 +146,21 @@ meeting.diar.wav
 
 ## 📑 CLI Arguments Cheat Sheet
 
-| Command        | Argument            | Default           | Description                                                           |
-| -------------- | ------------------- | ----------------- | --------------------------------------------------------------------- |
-| **General**    | `INPUT`             | — (required)      | Path to input media file (.mp4, .m4a, .wav, …)                        |
-|                | `OUTDIR`            | Same dir as input | Output directory for all artifacts                                    |
-|                | `ARGS`              | —                 | Extra arguments forwarded to transcribe/diarize                       |
-| **Transcribe** | `--model`           | `medium`          | Whisper model size (`tiny`, `base`, `small`, `medium`, `large`)       |
-|                | `--device`          | auto              | Compute device (`cpu`, `cuda`)                                        |
-|                | `--word_timestamps` | off               | Produce word-level JSON with timestamps                               |
-| **Diarize**    | `--hf_token`        | from `.env`       | Hugging Face token (overrides env var)                                |
-|                | `--num_speakers`    | auto              | Lock diarization to exactly N speakers                                |
-|                | `--min_speakers`    | auto              | Lower bound on number of speakers                                     |
-|                | `--max_speakers`    | auto              | Upper bound on number of speakers                                     |
-| **Full**       | (all of above)      | —                 | Runs transcription (always with `--word_timestamps`) then diarization |
+| Command        | Argument            | Default                           | Description                                                           |
+| -------------- | ------------------- | --------------------------------- | --------------------------------------------------------------------- |
+| **General**    | `INPUT`             | — (required)                      | Path to input media file (.mp4, .m4a, .wav, …)                        |
+|                | `OUTDIR`            | Same dir as input                 | Output directory for all artifacts                                    |
+|                | `ARGS`              | —                                 | Extra arguments forwarded to transcribe/diarize                       |
+| **Transcribe** | `--model`           | from `.env` (`MODEL_SIZE=medium`) | Whisper model size (`tiny`, `base`, `small`, `medium`, `large-v3`)    |
+|                | `--language`        | from `.env` (`LANGUAGE=ru`)       | Language code, empty for auto-detect                                  |
+|                | `--device`          | from `.env` (`DEVICE=cpu`)        | Compute device (`cpu`, `cuda`)                                        |
+|                | `--beam_size`       | from `.env` (`BEAM_SIZE=5`)       | Beam search width: higher = better accuracy, slower                   |
+|                | `--vad_filter`      | from `.env` (`VAD_FILTER=false`)  | Apply simple voice activity detection before transcription            |
+|                | `--word_timestamps` | off                               | Emit per-word timestamps and save JSON                                |
+| **Diarize**    | `--hf_token`        | from `.env` (`HUGGINGFACE_TOKEN`) | Hugging Face token (overrides env var)                                |
+|                | `--num_speakers`    | auto                              | Lock diarization to exactly N speakers                                |
+|                | `--min_speakers`    | auto                              | Lower bound on number of speakers                                     |
+|                | `--max_speakers`    | auto                              | Upper bound on number of speakers                                     |
+| **Full**       | (all of above)      | —                                 | Runs transcription (always with `--word_timestamps`) then diarization |
 
 ---
