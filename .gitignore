@@ -1,0 +1,59 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+*.pyo
+
+# Virtual environments
+venv/
+.envrc
+.python-version
+
+# Byte-compiled / optimized / DLL files
+*.egg-info/
+.eggs/
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+.coverage
+.coverage.*
+.cache
+.nox/
+.pytest_cache/
+.mypy_cache/
+htmlcov/
+
+# Jupyter / IPython
+.ipynb_checkpoints
+*.ipynb
+
+# Logs
+*.log
+
+# ---- Project specific ----
+# Local environment variables (tokens, secrets)
+.env
+.env.*
+
+# Transcription / diarization outputs
+*.txt
+*.srt
+*.vtt
+*.json
+*.diar.wav
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+
+# ---- Editors / IDEs ----
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
