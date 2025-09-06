@@ -24,7 +24,7 @@ Outputs include:
 
 ```bash
 # clone the repo
-git clone https://github.com/yourusername/whisper-transcriber.git
+git clone git@github.com:filser89/whisper-transcriber.git
 cd whisper-transcriber
 
 # create virtual environment
@@ -32,10 +32,6 @@ make venv
 
 # install dependencies
 make install
-
-# copy environment template
-cp .env.example .env
-# then edit .env and set your Hugging Face token + options
 
 # (optional) upgrade deps
 make update
