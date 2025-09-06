@@ -36,6 +36,7 @@ htmlcov/
 # Local environment variables (tokens, secrets)
 .env
 .env.*
+!.env.example
 
 # Transcription / diarization outputs
 *.txt
@@ -43,6 +44,9 @@ htmlcov/
 *.vtt
 *.json
 *.diar.wav
+
+# But keep dependency list
+!requirements.txt
 
 # Temporary files
 *.tmp

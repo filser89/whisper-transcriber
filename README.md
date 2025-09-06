@@ -26,13 +26,24 @@ Outputs include:
 # clone the repo
 git clone git@github.com:filser89/whisper-transcriber.git
 cd whisper-transcriber
+```
 
+```bash
 # create virtual environment
 make venv
+```
 
+```bash
 # install dependencies
 make install
+```
 
+```bash
+# (optional) copy environment template
+cp .env.example .env
+```
+
+```bash
 # (optional) upgrade deps
 make update
 ```
